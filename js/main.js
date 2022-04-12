@@ -1,13 +1,16 @@
 const testBtn = document.getElementById('testBtn')
+const videos = document.getElementsByTagName('video')
 
 testBtn?.addEventListener("click", () => {
   console.log('klikk')
   const smallChocolates = document.querySelectorAll('.smallChocolate')
   // console.log(smallChocolates)
   smallChocolates.forEach(chocolate => {
-    console.log(chocolate.parentElement.classList)
-    chocolate.parentElement.classList.remove('smallChocolate')
-    chocolate.parentElement.classList.remove('animated')
+    // console.log(chocolate.parentElement.classList)
+    const computedStyle = window.getComputedStyle(chocolate)
+    console.log(computedStyle.getPropertyValue('right'))
+    // chocolate.parentElement.classList.remove('smallChocolate')
+    // chocolate.parentElement.classList.remove('animated')
   })
 })
 
@@ -28,22 +31,23 @@ function startSendingChocolates() {
   testSubjectContainer.appendChild(testSubjectImg)
 
   document.body.appendChild(testSubjectContainer)
+  setTimeout(() => {
+    document.body.removeChild(testSubjectContainer)
+  }, 2500)
 }
 
-function clearDom () {
-  const testSubjectContainers = document.querySelectorAll('.testSubjectContainer')
-  testSubjectContainers.forEach(div => {
-    // console.log(div)
-    div.remove()
+function startConveyor() {
+  const videosArr = [...videos]
+  videosArr.forEach(video => {
+    video.play()
   })
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setInterval(startSendingChocolates, (rndIntBetween(1,4) * 100) * rndIntBetween(2, 8))
-  // setInterval(clearDom, 5000)
+  setInterval(startSendingChocolates, (rndIntBetween(1, 4) * 100) * rndIntBetween(2, 8))
+  setTimeout(startConveyor, 2000)
 })
 
 document.addEventListener("beforeunload ", () => {
   clearInterval(startSendingChocolates)
-  clearInterval(clearDom)
 })

@@ -2,6 +2,12 @@
   -webkit-animation: linear;
   -webkit-animation-name: run;
   -webkit-animation-duration: 2.5s;
+  /*-webkit-transition: 3s;*/
+  /*-moz-transition: 3s;*/
+  /*-ms-transition: 3s;*/
+  /*-o-transition: 3s;*/
+  /*transition: 3s;*/
+  /*margin-right: 100% !important;*/
 }
 
 .testSubjectContainer {
@@ -61,14 +67,19 @@
     right: 0;
     opacity: 1;
   }
+  95% {
+    transform: rotate(0deg);
+  }
 
   98% {
     opacity: 1;
+    transform: rotate(-15deg);
   }
 
   100% {
     right: calc(100% - 100px);
     opacity: 0;
+    transform: rotate(-20deg);
   }
 }
 
