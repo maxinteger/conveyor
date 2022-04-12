@@ -23,7 +23,7 @@ function startSendingChocolates() {
   testSubjectContainer.classList.add(`animated`)
   testSubjectContainer.classList.add(classToAdd)
   let testSubjectImg = document.createElement("img")
-  testSubjectImg.src = "/img/chocolate.png"
+  testSubjectImg.src = "./img/chocolate.png"
   testSubjectImg.classList.add(bigOrSmall)
   testSubjectContainer.appendChild(testSubjectImg)
 
