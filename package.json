@@ -1,21 +1,56 @@
 {
   "name": "conveyor",
   "version": "0.0.1",
-  "description": "",
+  "type": "commonjs",
+  "description": "conveyor",
   "keywords": [
     "conveyor"
   ],
-  "license": "",
+  "license": "ISC",
+  "main": "main.js",
   "author": "Feleky Mirkó<mirko.feleky@skylc.hu>",
   "scripts": {
-    "build": "parcel build index.html",
-    "dev": "parcel index.html --open",
-    "start": "npm run build && npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "live-server",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "1.0.0"
   },
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.4.1",
-    "@parcel/transformer-webmanifest": "^2.4.1",
-    "parcel": "^2.4.1"
+    "@electron-forge/cli": "6.0.0-beta.63",
+    "@electron-forge/maker-deb": "6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.63",
+    "@electron-forge/maker-zip": "6.0.0-beta.63",
+    "electron": "18.0.3"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "conveyor"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

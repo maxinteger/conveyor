@@ -1,4 +1,8 @@
-import {config} from '/js/config.js'
+const config = {
+  startSendingChocolatesInterval: 700,
+  travellingSpeedThroughScreen: 6000,
+  smallChocolateChance: 30,
+}
 
 const testBtn = document.getElementById('testBtn')
 const videos = document.getElementsByTagName('video')
@@ -53,7 +57,11 @@ function startSendingChocolates() {
   let bigOrSmallClassname = bigOrSmall ? 'bigChocolate' : 'smallChocolate'
 
   let testSubjectImg = document.createElement("img")
-  testSubjectImg.src = bigOrSmall ? "/images/cho3.png" : "/images/cho2.png"
+  testSubjectImg.src = bigOrSmall
+  // ? "my-magic-protocol://getMediaFile/images/cho3.png"
+  // : "my-magic-protocol://getMediaFile/images/cho2.png"
+  ? "images/cho3.png"
+  : "images/cho2.png"
   testSubjectImg.classList.add('testSubjectContainer', randomizedPositionClassname, bigOrSmallClassname)
   testSubjectImg.style.transition = `margin-right ${config.travellingSpeedThroughScreen}ms, bottom 2s`
   testSubjectImg.style.transitionTimingFunction = "linear"
