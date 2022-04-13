@@ -1,3 +1,22 @@
+/*VIDEO*/
+#threeVideoContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#threeVideoContainer .testVideoContainer {
+  flex: 33.333333%;
+}
+
+video {
+  height: 100%;
+  width: 100%;
+}
+
+/*VIDEO*/
+
+/*CSOKI*/
 .testSubjectContainer {
   position: absolute;
   right: 0;
@@ -51,46 +70,6 @@
   bottom: 90%;
 }
 
-button {
-  bottom: 18px;
-  right: 18px;
-  position: absolute;
-  z-index: 10;
-  background-color: #EE293D; /* DimBoard */
-  border: none;
-  outline: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-size: 18px;
-  margin: 4px 2px;
-  cursor: pointer;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-}
-
-button:hover {
-  box-shadow: 16px 0 12px 0 rgba(0, 0, 0, 0.24), 50px 0 17px 0 rgba(0, 0, 0, 0.19);
-}
-
-#threeVideoContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-#threeVideoContainer .testVideoContainer {
-  flex: 33.333333%;
-}
-
-video {
-  height: 100%;
-  width: 100%;
-}
-
-
 .shakeAnim {
   /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: shake 1s;
@@ -134,4 +113,52 @@ video {
     transform: translate(1px, -2px) rotate(-1deg);
   }
 }
+
+/*CSOKI*/
+
+/*GOMB*/
+button {
+  bottom: 18px;
+  right: 18px;
+  position: absolute;
+  z-index: 10;
+  background-color: #EE293D; /* DimBoard */
+  border: none;
+  outline: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  box-shadow: 16px 0 12px 0 rgba(0, 0, 0, 0.24), 50px 0 17px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*GOMB*/
+
+/*VONAL*/
+.vl {
+  border-left: 4px dotted #EE293D; /* DimBoard */
+  height: 100%;
+  position: absolute;
+  margin-left: -2px;
+  top: 0;
+  opacity: 0.1;
+}
+
+.vlLeft {
+  left: calc(100% / 3);
+}
+
+.vlRight {
+  left: calc(calc(100% / 3) * 2);
+}
+/*VONAL*/
 

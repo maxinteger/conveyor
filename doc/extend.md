@@ -555,7 +555,7 @@ for an iPhone:
 ```html
 
 <link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)"
-      href="../public/images/startup.png">
+      href="../images/startup.png">
 ```
 
 

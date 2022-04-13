@@ -1,30 +1,34 @@
+import {config} from '/js/config.js'
+
 const testBtn = document.getElementById('testBtn')
 const videos = document.getElementsByTagName('video')
 const actualWidth = () => window.innerWidth
 
 function removeLastChars(str, chars) {
-  return str.substring(0, str.length - chars);
+  return str.substring(0, str.length - chars)
 }
 
 function removeLastTwoChar(str) {
-  return removeLastChars(str.toString(), 2);
+  return removeLastChars(str.toString(), 2)
 }
 
 testBtn?.addEventListener("click", () => {
   const smallChocolates = document.querySelectorAll('.smallChocolate')
 
   smallChocolates.forEach(chocolate => {
-    let computedStyle = window.getComputedStyle(chocolate)
-    let marginRight = computedStyle.getPropertyValue('margin-right')
+    const computedStyle = window.getComputedStyle(chocolate)
+    const marginRight = computedStyle.getPropertyValue('margin-right')
+    const chocolateWidth = computedStyle.getPropertyValue('width')
 
-    let marginRightAsNumber = Math.floor(parseInt(removeLastTwoChar(marginRight), 10))
+    const marginRightAsNumber = Math.floor(parseInt(removeLastTwoChar(marginRight), 10))
+    const chocolateWidthAsNumber = Math.floor(parseInt(removeLastTwoChar(chocolateWidth), 10))
 
     const oneThirdOfTtheFullWidth = actualWidth() / 3
 
     // console.log(marginRightAsNumber, oneThirdOfTtheFullWidth)
     // A középső képernyőre van tervezve, azokra a kiscsokikra amik még nem hullottak ki
-    if ((marginRightAsNumber > oneThirdOfTtheFullWidth) &&
-      (marginRightAsNumber < oneThirdOfTtheFullWidth * 2) &&
+    if (((marginRightAsNumber + chocolateWidthAsNumber / 2) > oneThirdOfTtheFullWidth) &&
+      ((marginRightAsNumber + chocolateWidthAsNumber / 2) < oneThirdOfTtheFullWidth * 2) &&
       (chocolate.style.background !== "red")
     ) {
       chocolate.style.marginRight = marginRight
@@ -45,13 +49,13 @@ const rndIntBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) +
 
 function startSendingChocolates() {
   let randomizedPositionClassname = `bottom${rndIntBetween(3, 7)}0`
-  let bigOrSmall = rndIntBetween(1, 2) === 1
+  let bigOrSmall = rndIntBetween(1, 100) > config.smallChocolateChance
   let bigOrSmallClassname = bigOrSmall ? 'bigChocolate' : 'smallChocolate'
 
   let testSubjectImg = document.createElement("img")
-  testSubjectImg.src = bigOrSmall ? "/public/images/cho3.png" : "/public/images/cho2.png"
+  testSubjectImg.src = bigOrSmall ? "/images/cho3.png" : "/images/cho2.png"
   testSubjectImg.classList.add('testSubjectContainer', randomizedPositionClassname, bigOrSmallClassname)
-  testSubjectImg.style.transition = "margin-right 5s, bottom 2s"
+  testSubjectImg.style.transition = `margin-right ${config.travellingSpeedThroughScreen}ms, bottom 2s`
   testSubjectImg.style.transitionTimingFunction = "linear"
 
   document.body.appendChild(testSubjectImg)
@@ -62,10 +66,10 @@ function startSendingChocolates() {
 
   setTimeout(() => {
     document.body.removeChild(testSubjectImg)
-  }, 5000)
+  }, config.travellingSpeedThroughScreen)
 }
 
-function startConveyor() {
+function startConveyorVideos() {
   const videosArr = [...videos]
   videosArr.forEach(video => {
     video.play()
@@ -73,8 +77,8 @@ function startConveyor() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(startConveyor, 2000)
-  setInterval(startSendingChocolates, 500)
+  setTimeout(startConveyorVideos, 2000)
+  setInterval(startSendingChocolates, config.startSendingChocolatesInterval)
 })
 
 document.addEventListener("beforeunload ", () => {
