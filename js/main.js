@@ -2,6 +2,7 @@ import {config} from "../gameConfig.js"
 
 const testBtn = document.getElementById('testBtn')
 const videos = document.getElementsByTagName('video')
+const videosArr = [...videos]
 const actualWidth = () => window.innerWidth
 
 function removeLastChars(str, chars) {
@@ -74,8 +75,7 @@ function startSendingChocolates() {
 }
 
 function startConveyorVideos() {
-  const videosArr = [...videos]
-  videosArr.forEach(video => {
+  videosArr.forEach((video) => {
     video.play()
   })
 }
