@@ -1,29 +1,18 @@
-.animated {
-  -webkit-animation: linear;
-  -webkit-animation-name: run;
-  -webkit-animation-duration: 2.5s;
-  /*-webkit-transition: 3s;*/
-  /*-moz-transition: 3s;*/
-  /*-ms-transition: 3s;*/
-  /*-o-transition: 3s;*/
-  /*transition: 3s;*/
-  /*margin-right: 100% !important;*/
-}
-
 .testSubjectContainer {
   position: absolute;
+  right: 0;
+  border-radius: 50%;
   z-index: 10;
-  opacity: 0;
 }
 
 .bigChocolate {
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
 }
 
 .smallChocolate {
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
 }
 
 .bottom10 {
@@ -62,32 +51,27 @@
   bottom: 90%;
 }
 
-@-webkit-keyframes run {
-  0% {
-    right: 0;
-    opacity: 1;
-  }
-  95% {
-    transform: rotate(0deg);
-  }
-
-  98% {
-    opacity: 1;
-    transform: rotate(-15deg);
-  }
-
-  100% {
-    right: calc(100% - 100px);
-    opacity: 0;
-    transform: rotate(-20deg);
-  }
-}
-
 button {
-  top: 0;
+  bottom: 0;
   right: 0;
   position: absolute;
   z-index: 10;
+  background-color: #EE293D; /* DimBoard */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  box-shadow: 16px 0 12px 0 rgba(0, 0, 0, 0.24), 50px 0 17px 0 rgba(0, 0, 0, 0.19);
 }
 
 #threeVideoContainer {
@@ -105,4 +89,48 @@ video {
   width: 100%;
 }
 
+
+.shakeAnim {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 1s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: 1;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(2px, 2px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-4px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(4px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(2deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-2deg);
+  }
+  60% {
+    transform: translate(-4px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(4px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
 

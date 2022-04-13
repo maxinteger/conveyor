@@ -1,39 +1,63 @@
 const testBtn = document.getElementById('testBtn')
 const videos = document.getElementsByTagName('video')
+const actualWidth = () => window.innerWidth
+
+function removeLastChars(str, chars) {
+  return str.substring(0, str.length - chars);
+}
+
+function removeLastTwoChar(str) {
+  return removeLastChars(str.toString(), 2);
+}
 
 testBtn?.addEventListener("click", () => {
-  console.log('klikk')
   const smallChocolates = document.querySelectorAll('.smallChocolate')
-  // console.log(smallChocolates)
+
   smallChocolates.forEach(chocolate => {
-    // console.log(chocolate.parentElement.classList)
-    const computedStyle = window.getComputedStyle(chocolate)
-    console.log(computedStyle.getPropertyValue('right'))
-    // chocolate.parentElement.classList.remove('smallChocolate')
-    // chocolate.parentElement.classList.remove('animated')
+    let computedStyle = window.getComputedStyle(chocolate)
+    let marginRight = computedStyle.getPropertyValue('margin-right')
+
+    let marginRightAsNumber = Math.floor(parseInt(removeLastTwoChar(marginRight), 10))
+
+    const oneThirdOfTtheFullWidth = actualWidth() / 3
+
+    console.log(marginRightAsNumber, oneThirdOfTtheFullWidth)
+    if ((marginRightAsNumber > oneThirdOfTtheFullWidth) &&
+      (marginRightAsNumber < oneThirdOfTtheFullWidth * 2) &&
+      (chocolate.style.background !== "red")
+    ) {
+      chocolate.style.marginRight = marginRight
+      chocolate.style.bottom = '0'
+    } else {
+      chocolate.style.background = "red"
+      chocolate.classList.add('shakeAnim')
+    }
+
   })
 })
 
 const rndIntBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
 function startSendingChocolates() {
-  let classToAdd = `bottom${rndIntBetween(3, 7)}0`
-  // console.log('spawn', classToAdd, rndIntBetween(1, 2))
-  let bigOrSmall = rndIntBetween(1, 2) === 1 ? 'bigChocolate' : 'smallChocolate'
+  let randomizedPositionClassname = `bottom${rndIntBetween(3, 7)}0`
+  let bigOrSmall = rndIntBetween(1, 2) === 1
+  let bigOrSmallClassname = bigOrSmall ? 'bigChocolate' : 'smallChocolate'
 
-  let testSubjectContainer = document.createElement("div")
-  testSubjectContainer.classList.add(`testSubjectContainer`)
-  testSubjectContainer.classList.add(`animated`)
-  testSubjectContainer.classList.add(classToAdd)
   let testSubjectImg = document.createElement("img")
-  testSubjectImg.src = "/public/images/chocolate.png"
-  testSubjectImg.classList.add(bigOrSmall)
-  testSubjectContainer.appendChild(testSubjectImg)
+  testSubjectImg.src = bigOrSmall ? "/public/images/cho3.png" : "/public/images/cho2.png"
+  testSubjectImg.classList.add('testSubjectContainer', randomizedPositionClassname, bigOrSmallClassname)
+  testSubjectImg.style.transition = "margin-right 5s, bottom 2s"
+  testSubjectImg.style.transitionTimingFunction = "linear"
 
-  document.body.appendChild(testSubjectContainer)
+  document.body.appendChild(testSubjectImg)
+
   setTimeout(() => {
-    document.body.removeChild(testSubjectContainer)
-  }, 2500)
+    testSubjectImg.style.marginRight = `calc(100% - ${bigOrSmall ? '150px' : '75px'})`
+  }, 50)
+
+  setTimeout(() => {
+    document.body.removeChild(testSubjectImg)
+  }, 5000)
 }
 
 function startConveyor() {
@@ -44,8 +68,8 @@ function startConveyor() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setInterval(startSendingChocolates, (rndIntBetween(1, 4) * 100) * rndIntBetween(2, 8))
   setTimeout(startConveyor, 2000)
+  setInterval(startSendingChocolates, 500)
 })
 
 document.addEventListener("beforeunload ", () => {
