@@ -21,7 +21,8 @@ testBtn?.addEventListener("click", () => {
 
     const oneThirdOfTtheFullWidth = actualWidth() / 3
 
-    console.log(marginRightAsNumber, oneThirdOfTtheFullWidth)
+    // console.log(marginRightAsNumber, oneThirdOfTtheFullWidth)
+    // A középső képernyőre van tervezve, azokra a kiscsokikra amik még nem hullottak ki
     if ((marginRightAsNumber > oneThirdOfTtheFullWidth) &&
       (marginRightAsNumber < oneThirdOfTtheFullWidth * 2) &&
       (chocolate.style.background !== "red")
@@ -29,10 +30,14 @@ testBtn?.addEventListener("click", () => {
       chocolate.style.marginRight = marginRight
       chocolate.style.bottom = '0'
     } else {
-      chocolate.style.background = "red"
-      chocolate.classList.add('shakeAnim')
+      // eltelt az 50 ms, hogy rárakja a margin-rightot a "startSendingChocolates" function
+      if (chocolate.style.marginRight.startsWith('calc')) {
+        chocolate.style.background = "red"
+        chocolate.classList.add('shakeAnim')
+        chocolate.style.transition = 'all 1s ease-in-out'
+        chocolate.style.opacity = '0'
+      }
     }
-
   })
 })
 
