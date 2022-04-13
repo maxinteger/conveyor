@@ -1,8 +1,4 @@
-const config = {
-  startSendingChocolatesInterval: 700,
-  travellingSpeedThroughScreen: 6000,
-  smallChocolateChance: 30,
-}
+import {config} from "../gameConfig.js"
 
 const testBtn = document.getElementById('testBtn')
 const videos = document.getElementsByTagName('video')

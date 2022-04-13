@@ -9,9 +9,15 @@
   flex: 33.333333%;
 }
 
+body {
+  overflow: hidden;
+}
+
 video {
   height: 100%;
   width: 100%;
+  min-height: 100vh;
+  object-fit: cover;
 }
 
 /*VIDEO*/
