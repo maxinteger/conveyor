@@ -8,7 +8,7 @@ const createWindow = () => {
     width: "100%",
     height: "100%",
     autoHideMenuBar: true,
-    // frame: false,
+    frame: false,
     // skipTaskbar: true,
     // kiosk: true,
     enableLargerThanScreen: true,

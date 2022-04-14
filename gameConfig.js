@@ -3,5 +3,5 @@ export const config = {
   startSendingChocolatesInterval: 700,
   travellingSpeedThroughScreen: 6000,
   //%-ban értendő
-  smallChocolateChance: 30,
+  smallChocolateChance: 40,
 }

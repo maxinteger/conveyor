@@ -6,7 +6,8 @@
 }
 
 #threeVideoContainer .testVideoContainer {
-  flex: 33.333333%;
+  /*flex: calc(100% / 3);*/
+  flex: 1;
 }
 
 body {
@@ -16,6 +17,7 @@ body {
 video {
   height: 100%;
   width: 100%;
+  min-width: 100%;
   min-height: 100vh;
   object-fit: cover;
 }
@@ -151,12 +153,12 @@ button:hover {
 
 /*VONAL*/
 .vl {
-  border-left: 4px dotted #EE293D; /* DimBoard */
+  border-left: 4px solid #EE293D; /* DimBoard */
   height: 100%;
   position: absolute;
   margin-left: -2px;
   top: 0;
-  opacity: 0.1;
+  opacity: 0.9;
 }
 
 .vlLeft {
