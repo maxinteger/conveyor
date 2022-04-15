@@ -1,17 +1,20 @@
-export function fromEventOnce(element, event, timeout=-1) {
+export function fromEventOnce(element, event, timeout = -1) {
   return new Promise((resolve, reject) => {
-    let timerId
+    let timerId;
     const listener = (event) => {
-      resolve(event)
-      clearTimeout(timerId)
-    }
-    element.addEventListener(event, listener, {once: true})
+      resolve(event);
+      clearTimeout(timerId);
+    };
+    element.addEventListener(event, listener, { once: true });
 
-    if (typeof timeout === 'number' && timeout > 0) {
+    if (typeof timeout === "number" && timeout > 0) {
       timerId = setTimeout(() => {
-        element.removeEventListener(event, listener)
-        reject()
-      }, timeout)
+        element.removeEventListener(event, listener);
+        reject();
+      }, timeout);
     }
-  })
+  });
 }
+
+export const rndIntBetween = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
