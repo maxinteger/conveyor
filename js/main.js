@@ -3,12 +3,8 @@ import { Chocolate } from "./chocolate.js";
 import { fromEventOnce } from "./utils.js";
 
 const testBtn = document.getElementById("testBtn");
-/** @type HTMLVideoElement[] */
-const videos = [
-  document.createElement("video"),
-  document.createElement("video"),
-  document.createElement("video"),
-];
+/** @type HTMLVideoElement */
+const video = document.createElement("video");
 /** @type HTMLCanvasElement */
 const canvas = document.getElementById("main-canvas");
 /** @type CanvasRenderingContext2D */
@@ -32,14 +28,15 @@ function startSendingChocolates(time = lastTime) {
   // render videos
   const screenHeight = window.innerHeight;
   const screenWidth1_3 = window.innerWidth / 3;
-  videos.forEach((video, idx) =>
-    ctx.drawImage(video, screenWidth1_3 * idx, 0, screenWidth1_3, screenHeight)
-  );
+
+  ctx.drawImage(video, screenWidth1_3 * 0, 0, screenWidth1_3, screenHeight);
+  ctx.drawImage(video, screenWidth1_3 * 1, 0, screenWidth1_3, screenHeight);
+  ctx.drawImage(video, screenWidth1_3 * 2, 0, screenWidth1_3, screenHeight);
 
   // remove items
   chocolateList = chocolateList.filter((c) => c.isAlive);
   // create items
-  const timeToNextItem = Math.floor(time / 1000) % 0.5 === 0;
+  const timeToNextItem = Math.floor(time / 100) % 10 === 0;
   if (chocolateList.length < config.maxItems && timeToNextItem) {
     chocolateList.push(new Chocolate(ctx, assets));
   }
@@ -55,24 +52,11 @@ function startSendingChocolates(time = lastTime) {
   );
 }
 
-function startVideo() {
-  videos.forEach((el) => {
-    el.currentTime = 0;
-    el.play();
-  });
-}
-
 async function init() {
-  await Promise.all(
-    videos.map((video) => {
-      video.muted = true;
-      video.src = "/video/test.mp4";
-      return fromEventOnce(video, "canplay");
-    })
-  );
-  startVideo();
-  // Synchronised loop
-  videos[0].addEventListener("ended", () => startVideo());
+  video.muted = true;
+  video.loop = true;
+  video.src = "/video/test.mp4";
+  video.play();
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
