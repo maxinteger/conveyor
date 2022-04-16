@@ -1,30 +1,58 @@
 import { config } from "../gameConfig.js";
-import { fromEventOnce } from "./utils.js";
 import { Chocolate } from "./chocolate.js";
+import { fromEventOnce } from "./utils.js";
 
 const testBtn = document.getElementById("testBtn");
-const videos = Array.from(document.getElementsByTagName("video"));
-const chocolateContainer = document.getElementById("chocolate-container");
+/** @type HTMLVideoElement[] */
+const videos = [
+  document.createElement("video"),
+  document.createElement("video"),
+  document.createElement("video"),
+];
+/** @type HTMLCanvasElement */
+const canvas = document.getElementById("main-canvas");
+/** @type CanvasRenderingContext2D */
+const ctx = canvas.getContext("2d");
+
+const assets = {};
 
 let lastTime = performance.now();
 let chocolateList = [];
+
+testBtn?.addEventListener("click", () => {
+  chocolateList.forEach((chocolate) => {
+    chocolate.select();
+  });
+});
+
 function startSendingChocolates(time = lastTime) {
   const timeDiff = time - lastTime;
   lastTime = time;
 
+  // render videos
+  const screenHeight = window.innerHeight;
+  const screenWidth1_3 = window.innerWidth / 3;
+  videos.forEach((video, idx) =>
+    ctx.drawImage(video, screenWidth1_3 * idx, 0, screenWidth1_3, screenHeight)
+  );
+
   // remove items
   chocolateList = chocolateList.filter((c) => c.isAlive);
   // create items
-  const timeToNextItem = Math.floor(time / 100) % 20 === 0;
+  const timeToNextItem = Math.floor(time / 1000) % 0.5 === 0;
   if (chocolateList.length < config.maxItems && timeToNextItem) {
-    chocolateList.push(new Chocolate(chocolateContainer));
+    chocolateList.push(new Chocolate(ctx, assets));
   }
   // update and render
   chocolateList.forEach((c) => {
     c.update(timeDiff);
-    c.render();
+    c.render(timeDiff);
   });
-  requestAnimationFrame(startSendingChocolates);
+
+  setTimeout(
+    () => requestAnimationFrame(startSendingChocolates),
+    1000 / config.fsp
+  );
 }
 
 function startVideo() {
@@ -34,18 +62,30 @@ function startVideo() {
   });
 }
 
-testBtn?.addEventListener("click", () => {
-  chocolateList.forEach((chocolate) => {
-    chocolate.select();
-  });
-});
-
-// Start only when all player are ready for playback
-Promise.all(videos.map((el) => fromEventOnce(el, "canplay"))).then(startVideo);
-
-// Synchronised loop
-videos[0]?.addEventListener("ended", () => {
+async function init() {
+  await Promise.all(
+    videos.map((video) => {
+      video.muted = true;
+      video.src = "/video/test.mp4";
+      return fromEventOnce(video, "canplay");
+    })
+  );
   startVideo();
-});
+  // Synchronised loop
+  videos[0].addEventListener("ended", () => startVideo());
 
-startSendingChocolates();
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const small = new Image();
+  const big = new Image();
+  small.src = "/images/cho2.png";
+  big.src = "/images/cho3.png";
+  await Promise.all([fromEventOnce(small, "load"), fromEventOnce(big, "load")]);
+  assets.small = small;
+  assets.big = big;
+
+  startSendingChocolates();
+}
+
+init();

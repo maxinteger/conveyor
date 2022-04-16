@@ -1,10 +1,12 @@
-import { config } from "../gameConfig";
+import { config } from "../gameConfig.js";
 import { rndIntBetween } from "./utils.js";
 
 export class Chocolate {
-  constructor(chocolateContainer) {
+  constructor(canvasCtx, assets) {
+    this.ctx = canvasCtx;
     const bigOrSmall = rndIntBetween(1, 100) > config.smallChocolateChance;
-    this.el = document.createElement("div");
+    this.type = bigOrSmall ? "big" : "small";
+    this.image = assets[this.type];
     // position in percentage
     this.x = 0;
     this.y = rndIntBetween(3, 7) * 10;
@@ -15,17 +17,12 @@ export class Chocolate {
         config.travellingSpeedThroughScreen * 1.05
       );
     this.vy = 100 / 2000; /*ms*/
-    this.type = bigOrSmall ? "big" : "small";
     this.isAlive = true;
     this.isSelected = false;
-
-    this.el.classList.add("chocolate", this.type);
-    this.container = chocolateContainer;
-    this.container.appendChild(this.el);
   }
 
   select() {
-    if (this.x > 30 && this.x <= 60 && this.type === "small") {
+    if (this.x > 33 && this.x <= 66 && this.type === "small") {
       this.isSelected = true;
     }
   }
@@ -39,7 +36,6 @@ export class Chocolate {
     // fix: out fo screen check
     if (this.x > 110 || this.y >= 100) {
       this.isAlive = false;
-      this.container.removeChild(this.el);
     }
   }
 
@@ -47,7 +43,8 @@ export class Chocolate {
     if (this.isAlive) {
       const x = ((100 - this.x) / 100) * window.innerWidth;
       const y = (this.y / 100) * window.innerHeight;
-      this.el.style.transform = `translate(${x}px, ${y}px)`;
+
+      this.ctx.drawImage(this.image, x, y);
     }
   }
 }

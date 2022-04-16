@@ -1,105 +1,11 @@
-/*VIDEO*/
-#threeVideoContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-#threeVideoContainer .testVideoContainer {
-  /*flex: calc(100% / 3);*/
-  flex: 1;
-}
-
 body {
   overflow: hidden;
+  margin: 0;
 }
 
-video {
-  height: 100%;
-  width: 100%;
-  min-width: 100%;
-  min-height: 100vh;
-  object-fit: cover;
-}
-
-/*VIDEO*/
-
-/*CSOKI*/
-.testSubjectContainer {
+#main-canvas {
   position: fixed;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
 }
-
-#chocolate-container {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-}
-
-.chocolate {
-  position: absolute;
-  transform-origin: center center;
-}
-
-.chocolate.big {
-  height: 150px;
-  width: 150px;
-  background-image: url("/images/cho3.png");
-}
-
-.chocolate.small {
-  height: 75px;
-  width: 75px;
-  background-image: url("/images/cho2.png");
-}
-
-.shakeAnim {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: shake 1s;
-
-  /* When the animation is finished, start again */
-  animation-iteration-count: 1;
-}
-
-@keyframes shake {
-  0% {
-    transform: translate(2px, 2px) rotate(0deg);
-  }
-  10% {
-    transform: translate(-1px, -2px) rotate(-1deg);
-  }
-  20% {
-    transform: translate(-4px, 0px) rotate(1deg);
-  }
-  30% {
-    transform: translate(4px, 2px) rotate(0deg);
-  }
-  40% {
-    transform: translate(1px, -1px) rotate(2deg);
-  }
-  50% {
-    transform: translate(-1px, 2px) rotate(-2deg);
-  }
-  60% {
-    transform: translate(-4px, 1px) rotate(0deg);
-  }
-  70% {
-    transform: translate(4px, 1px) rotate(-1deg);
-  }
-  80% {
-    transform: translate(-1px, -1px) rotate(1deg);
-  }
-  90% {
-    transform: translate(1px, 2px) rotate(0deg);
-  }
-  100% {
-    transform: translate(1px, -2px) rotate(-1deg);
-  }
-}
-
-/*CSOKI*/
 
 /*GOMB*/
 button {
